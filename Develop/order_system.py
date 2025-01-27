@@ -97,36 +97,49 @@ def update_order(order, menu_selection, menu_items):
                     and quantity ordered (updated as needed).
     """
     # TODO: Check if the customer typed a number
-
+    if isinstance(menu_selection, int):
         # TODO: Convert the menu selection to an integer
-
+        selection = menu_selection
 
         # TODO: Check if the menu selection is in the menu items keys
-
+        if selection in menu_items.keys():
             # TODO: Store the item name as a variable
-
+            item_name = menu_items[selection]["name"]
 
             # TODO: Ask the customer for the quantity of the menu item
             # TODO: Use the item name variable in the question
-
+            quantity_input = input(f"How many {item_name}s would you like? ")
 
             # TODO: Check if the quantity is a number, default to 1 if not
-
+            try:
+                quantity = int(quantity_input)
+            except ValueError:
+                print("Invalid quantity. Setting quantity to 1.")
+                quantity = 1
 
             # TODO: Add a dictionary to the order list 
             # TODO: The dictionary should include the item name, price, and quantity
             # TODO: Use the following names for the dictionary keys:
             # TODO: "Item name", "Price", "Quantity"
+            order.append({
+                "Item name": item_name,
+                "Price": menu_items[selection]["price"],
+                "Quantity": quantity
+            })
 
         # TODO: When the user's input isn't valid, 
         # TODO: tell the customer that their input isn't valid
+        else:
+            print(f"Menu selection {selection} is not a valid option.")
 
     # TODO: When the menu selection wasn't valid:
     # TODO: Print the menu selection and 
     # TODO: Tell the customer they didn't select a menu option
-
+    else:
+        print(f"'{menu_selection}' is not a valid menu selection.")
 
     # TODO: Return the updated order
+    return order
 
 
 def print_itemized_receipt(receipt):
